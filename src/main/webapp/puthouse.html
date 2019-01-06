@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发布房屋</title>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<link type="text/css" rel="stylesheet" href="layui/css/layui.css">
+<style>
+.hroomdiv,.addressdiv input{
+	text-align:right;
+} 
+</style>
+</head>
+<body>
+
+<ul class="layui-nav" lay-filter="">
+		<li class="layui-nav-item"><img src="images/logo_blank.jpg"></li>
+		<li class="layui-nav-item"><a href="">定位 <i
+				class="layui-icon layui-icon-location"
+				style="font-size: 30px; color: &amp;#xe715;"></i></a></li>
+		<li class="layui-nav-item"><a href="index.html">主页 <i
+				class="layui-icon layui-icon-home"
+				style="font-size: 30px; color: &amp;#xe68e;"></i></a></li>
+		<li class="layui-nav-item"><a href="my.html">个人中心 <i
+				class="layui-icon layui-icon-username"
+				style="font-size: 30px; color: &amp;#xe66f;"></i></a></li>
+		<li class="layui-nav-item"><a href="">联系客服 <i
+				class="layui-icon layui-icon-chat"
+				style="font-size: 30px; color: &amp;#xe606;"></i></a></li>
+		<li class="layui-nav-item"><a href="javascript:;">最新通知 <i
+				class="layui-icon layui-icon-template-1"
+				style="font-size: 30px; color: &amp;#xe656;"></i></a></li>
+		<li class="layui-nav-item" style="margin-left: 10px;"></li>
+		<li class="layui-nav-item"><button
+				class="layui-btn layui-btn-radius layui-btn-danger layui-btn-lg"
+				onclick="window.location.href='puthouse.html'">免费发布</button></li>
+		<li class="layui-nav-item" style="margin-left: 30px;"><a
+			href="login.html" id="login_name">用户登录<i
+				class="layui-icon layui-icon-rate-solid"
+				style="font-size: 30px; color: &amp;#xe67a;"></i></a></li>
+	</ul>
+<div class="layui-container">
+<form enctype="multipart/form-data"  id="form1">
+<div class="layui-row">
+	<h3><strong>类别：</strong></h3>
+  <div class="layui-form-item">
+    <label class=" layui-form-label">出租方式</label>
+    <div class="layui-form layui-input-block" >
+      <input type="radio" name="htype" value="整套" title="整套" checked>
+      <input type="radio" name="htype" value="单间" title="单间" >
+    </div>
+  </div>
+  <h3><strong>基本信息：</strong></h3>
+   <div class="layui-form-item addressdiv layui-col-lg10">
+    <div class="layui-row">
+    <label class="layui-form-label">地址</label>
+    <div class="layui-input-inline">
+      <input type="text" name="province" required="required" lay-verify="required" placeholder="省" 
+      autocomplete="off" class="layui-input" value="湖南省">     
+    </div>
+    <div class="layui-input-inline">
+      <input type="text" name="city" placeholder="市" 
+      autocomplete="off" class="layui-input" value="衡阳市">     
+    </div>
+     <div class="layui-form  layui-input-inline">
+    	<select name="district" lay-verify="required" id="district">
+	       <option value="珠晖区"  selected="selected">珠晖区</option>
+	        <option value="蒸湘区" >蒸湘区</option>
+	        <option value="雁峰区" >雁峰区</option>
+	        <option value="石鼓区">石鼓区</option>
+	        <option value="南岳区">南岳区</option>
+    	</select>   
+     </div>
+    </div>
+  </div>
+  <div class="layui-form-item layui-col-lg5">
+    <label class="layui-form-label" >街道/小区</label>
+    <div class="layui-input-block">
+      <input type="text" name="strnum" required  lay-verify="required" placeholder="请输入小区" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item hroomdiv layui-col-lg10">
+    <div class="layui-row">
+    
+    <label class="layui-form-label">面积、厅室</label>
+     <div class="layui-input-inline">
+      <input type="text" name="area" required lay-verify="number" placeholder="平米" 
+      autocomplete="off" class="layui-input">     
+    </div>  
+    <div class="layui-form layui-input-inline">
+    	<select name="hroom" lay-verify="required" id="hroom">	        
+	        <option value="一室一厅">一室一厅</option>
+	        <option value="两室一厅">两室一厅</option>
+	        <option value="三室一厅">三室一厅</option>
+	        <option value="四室一厅">四室一厅</option>
+	        <option value="四室两厅">四室两厅</option>
+    	</select>   
+    </div>
+ 
+    </div>
+  </div>
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">楼层</label>
+    <div class="layui-input-inline">
+      <input type="text" name="floor" required lay-verify="required" placeholder="第几层" 
+      autocomplete="off" class="layui-input" >     
+    </div> 
+  </div>
+  <div class="layui-form-item layui-col-lg4"> 
+   <label class="layui-form-label">朝向</label>
+   <div class="layui-form layui-input-block">  	  
+      <select name="aspection" required lay-verify="required" id="aspection">
+        <option value="">请选择朝向</option>
+        <option value="东">东</option>
+        <option value="西">西</option>
+        <option value="南">南</option>
+        <option value="北">北</option>
+        <option value="东南">东南</option>
+        <option value="西南">西南</option>
+        <option value="东北">东北</option>
+        <option value="西北">西北</option>
+      </select>
+    </div>   
+  </div>
+  
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">租金</label>
+    <div class="layui-input-inline">
+      <input type="text" name="price" required lay-verify="number" placeholder="元/月" 
+      autocomplete="off" class="layui-input" style="text-align:right">     
+    </div> 
+    <div class="layui-form layui-input-inline">
+    	<select name="paytype"  lay-verify="required" id="paytype">
+	        <option value="押一付一" selected="selected">押一付一</option>
+	        <option value="押一付三">押一付三</option>
+	        <option value="半年付">半年付</option>
+	        <option value="年付">年付</option>
+    	</select>   
+     </div>
+  </div>
+   <div class="layui-form-item layui-col-lg5">
+    <label class="layui-form-label">标题</label>
+    <div class="layui-input-block">
+      <input type="text" name="title" required  lay-verify="required" placeholder="请输入房屋标题" autocomplete="off" class="layui-input" id="title">
+    </div>
+  </div>
+  <div class="layui-form-item layui-form-text layui-col-lg8">
+    <label class="layui-form-label">描述</label>
+    <div class="layui-input-block">
+      <textarea name="discrible" placeholder="请输入内容" required  lay-verify="required" class="layui-textarea"></textarea>
+    </div>
+  </div>
+  <div class="layui-form-item layui-form-text layui-col-lg8"> <!--  class="layui-icon layui-icon-upload"  -->
+  	  <input type="file"  accept="image/png,image/gif,image/jpeg" multiple="true" name="image"></input> 
+	  <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+	         图片预览：
+	    <div class="layui-upload-list" id="uploadpic"></div>
+	   </blockquote>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <input type="button" class="layui-btn  site-demo-active" data-type="loading" onclick="puthouse()" value="立即提交"></input>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>  
+</div>
+</form>
+
+
+  
+  <div  class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo" style="margin-top: 15px; width:67%">
+         <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>         
+  </div>
+   			
+</div>
+<script>
+var fileArr = [];
+$.post("user/yes",function(value){
+	if(value!=null){
+		$("#login_name").attr("href","my.html");
+		$("#login_name").html("用户名："+value.uname);
+	}
+});
+
+  layui.use(['form'], function(){
+//       var form = layui.form;
+//       var upload = layui.upload;
+//       var layer = layui.layer;
+       //监听提交
+// 	  form.on('submit(formDemo)', function(data){					
+// 		  puthouse();  
+// 		  //layer.msg(JSON.stringify(data.field));
+// 		    //return false;
+// 	  });
+// 	  form.verify({
+// 		  number: function(value,item){
+// 		    	 if( !new RegExp("^[0-9]*$").text(value) ){
+// 		    		 return '面积/租金只能是数字';
+// 		    	 }
+// 		     }
+// 		  username: function(value, item){ //value：表单的值、item：表单的DOM对象
+// 		    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+// 		      return '用户名不能有特殊字符';
+// 		    }
+// 		    if(/(^\_)|(\__)|(\_+$)/.test(value)){
+// 		      return '用户名首尾不能出现下划线\'_\'';
+// 		    }
+// 		    if(/^\d+\d+\d$/.test(value)){
+// 		      return '用户名不能全为数字';
+// 		    }
+// 		  }	,
+	    
+// 	  });
+	  //多图片上传
+// 	  upload.render({
+// 	    elem: '#filecontent'
+// 	    ,url: 'insertHouseFile'
+// 	    ,multiple: true // 多文件 
+// 	    ,auto: false  // 是否开启自动上传 
+// 	    ,accept: 'image/png,image/gif,image/jpg,image/bmp'  // 允许上传的文件后缀 
+// 	    ,acceptMime: 'image/*'  //规定打开文件选择框时，筛选出的文件类型，值为用逗号隔开的 
+// 	    ,number: 20   //   设置同时可上传的文件数量
+// 	    //,data:fileArr
+// 	  	,bindAction: '.lay-submit' // 绑定的组件 
+// 	  //,data:{picture:fileName}
+// 	    ,choose: function(obj){
+// 	      //预读本地上传 文件，不支持ie8
+// 	     console.log(obj.pushFile);
+// 	     obj.preview(function(index, file, result){	    	
+// 	    		 console.log(file.name+'==='+result);
+// 	    		 $('#uploadpic').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img"'+
+// 	        		' style="width:100px;height:100px;">&nbsp;&nbsp;');
+// 	    		 fileArr.push(file.name);
+// 	    	}else{
+// 	    		for(var i=0;i<fileArr.length;i++){
+// 		    		if(file.name != fileArr[i] ){
+// 		    			//delete index;
+// 		    			console.log(file.name +'==='+fileArr[i] );
+// 		    	        $('#uploadpic').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img"'+
+// 		    	        		' style="width:100px;height:100px;">&nbsp;&nbsp;');
+// 		    	        fileArr.push(file.name);    
+// 		    		}
+// 		    	}	
+// 	    	}  
+	    	      
+// 	      });
+// 	    }
+// 	    ,done: function(res,index, upload){
+// 	      //上传完毕
+// 	      if(res.code==200){
+// 	    	  layer.msg("恭喜，图片上传成功，发布成功",{icon:6,time: 2000,btn: ['OK'] }); //2s后自动关闭
+// 	      }else{
+// 	    	  layer.msg("抱歉，图片上传失败,请重新上传",{icon:5,time: 2000 ,btn: ['OO']}); //2s后自动关闭
+// 	      }	      
+// 	    }
+// 	  });
+});
+
+
+//预览 要上传的 文件信息 
+$(function(){
+	$("input[name='image']").change(function(e){
+		var str ='';
+		// 获取所有的文件流 对象  
+		var files =this.files;
+		if( files !=null && files.length>0 ){
+			var url ='';
+			if( $('#uploadpic').val() != '' || $('#uploadpic').val() !=null  ){
+				$('#uploadpic').empty();
+			}
+			for(var i=0;i<files.length;i++){
+				url =URL.createObjectURL(files[i]);
+				$('#uploadpic').append('<img src="'+url+'" alt="'+ files[i].name +'" class="layui-upload-img"'+
+	    	        		' style="width:100px;height:100px;">&nbsp;&nbsp;');
+			}
+		}         
+	});
+});
+
+// 发布房源信息 
+function puthouse(){
+	//console.log(fileArr);
+	 var province = $("input[name='province']").val();
+		var city = $("input[name='city']").val();
+		var district = $("#district option:selected").val();
+		var area = $("input[name='area']").val();
+		var hroom = $("#hroom option:selected").val();
+		var aspection =$("#aspection option:selected ").val();
+		var floor = $("input[name='floor']").val();
+		var price = $("input[name='price']").val();
+		var paytype = $("#paytype  option:selected").val();
+		var title = $("#title").val();
+		var discrible = $(".layui-textarea").val();
+		//var uid =$("input[name='area']").val();
+		var photo = $("input[name='image']").val();
+		var dataVerify = /^[0-9]*$/;
+		if(province =='' || city=='' || district =='' || area =='' || hroom =='' || aspection =='' || floor =='' || price =='' || paytype =='' || title ==''){					
+			layui.use('layer', function(){
+				var layer = layui.layer;	  	
+				layer.msg('请完善必要信息,谢谢配合', {
+				  icon: 2,
+				  time: 2000, //2s后自动关闭
+				  skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+				})
+			});
+			return;
+		}else if( ! dataVerify.test(area) ){
+			layer.msg('面积只能是数字');		
+		    return ;			 		    		
+		}else if( ! dataVerify.test(price) ){
+			layer.msg('租金只能是数字');		
+		    return ;
+		}else if(photo == ''){
+			layer.msg('请选择图片', {
+				  icon: 2,
+				  time: 3000, //2s后自动关闭
+		  	      btn: ['OK'],
+				  skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+				});
+		    return;
+		}else{		
+			var form = new FormData(document.getElementById("form1"));
+			progressering();
+			$.ajax({
+		        type: "POST",//方法类型
+		        dataType: "json",//预期服务器返回的数据类型
+		        url: "inserthouse" ,//url
+		        data:form,
+//		        data: $('#form1').serialize(),
+                processData:false,
+                contentType:false,
+                clearForm:true,
+		        success: function (data){
+		        	//console.log(data);
+					if(data == true){						
+						layui.use('layer', function(){
+							var layer = layui.layer;	  	
+							layer.msg('房源信息提交成功，工作人员会尽快为您审核，请耐心等待', {
+							  icon: 1,
+							  time: 3000, //2s后自动关闭
+					  	      btn: ['去个人中心','三秒后自动关闭'],
+							  skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+							 
+							});
+						});
+						 setTimeout(function(){
+							 	window.location.href='index.html';							
+							},3000);
+ 					}
+					else{
+						layui.use('layer', function(){
+							var layer = layui.layer;	  	
+							layer.msg('发布失败，图片未上传成功,请检查网络是否连接...', {
+							  icon: 5,
+							  time: 3000, //2s后自动关闭
+							  btn: ['重新尝试','OO'],
+							  skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+							  function(){
+								  puthouse();
+							  },function(){								  
+							  }
+							})
+						});
+					}
+		        }
+		    });
+			//get();//此处为上传文件的进度条
+	    }		
+}
+
+//上传进度 监听 
+function progressering(){
+	layui.use('element', function(){
+		  var $ = layui.jquery
+		  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+		  
+		  //触发事件
+		  var active = {
+		      loading: function(othis){
+		      var DISABLED = 'layui-btn-disabled';
+		      if(othis.hasClass(DISABLED)) 
+		    	  return;
+		    
+		      //模拟loading
+		      var n = 0, 
+		      timer = setInterval(function(){
+		        n = n +Math.random()*50|2;  
+		        if(n>100){
+		          n = 100;
+		          clearInterval(timer);
+		          othis.removeClass(DISABLED);
+		        }
+		        element.progress('demo', n+'%');
+		      }, 300+Math.random()*1000);
+		      
+		      othis.addClass(DISABLED);
+		    }
+		  };
+		  
+		  $('.site-demo-active').on('click', function(){
+		    var othis = $(this), type = $(this).data('type');
+		    active[type] ? active[type].call(this, othis) : '';
+		  });
+		});
+}
+
+
+</script>
+<div style=" width:100%; position:fix;bottom:0;text-align:center;">
+ <ul  id = "footernav" class="layui-nav layui-bg-black"  lay-filter="">
+  <li class="layui-nav-item"><a href="">常见问题</a></li>
+  <li class="layui-nav-item layui-this"><a href="">帮助中心</a></li>
+  <li class="layui-nav-item"><a href="">意见反馈</a></li>
+</ul>
+</div>
+</body>
+</html>
+

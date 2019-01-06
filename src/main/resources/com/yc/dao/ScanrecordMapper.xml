@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.yc.dao.ScanrecordMapper">
+  	<select id="selectScanrecord" parameterType="com.yc.po.ScanrecordPO" resultType="com.yc.po.ScanrecordPO">
+  		select * from scanrecord 
+  		<where>
+  			<if test="cname!=null and cname!=''">
+  				cname=#{cname}
+  			</if>
+  			<if test="ctitle!=null and ctitle!=''">
+  				and ctitle=#{ctitle}
+  			</if>
+  			<if test="sdate!=null and sdate!=''">
+  				and sdate=#{sdate}
+  			</if>
+  		</where>
+  	</select>
+  	
+  	<insert id="insertScanrecord" parameterType="com.yc.po.ScanrecordPO" >
+  		insert into scanrecord(sid,cname,ctitle,sdate) 
+  		values(null,#{cname},#{ctitle},now())
+  	</insert>
+  	
+  	<delete id="deleteScanById">
+  		delete from scanrecord where sid in
+  		<foreach collection="list" item="sid" open="(" close=")" separator=",">
+  			#{sid}
+  		</foreach>  		
+  	</delete>
+ 
+  	
+  	<select id="selectCount" resultType="Integer" parameterType="String">
+  		select count(*) from scanrecord where ctitle=#{ctitle}
+  	</select>
+  </mapper>

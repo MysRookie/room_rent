@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主界面</title>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<link type="text/css" rel="stylesheet" href="layui/css/layui.css">
+<!-- 百度地图秘钥  -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=bmRWsOojGlzeZ3pHRlAxeDtYA2EsxjEs"></script>
+<!-- 页面样式脚本  -->
+<link type="text/css" rel="stylesheet" href="css/preIndex.css">
+</head>
+
+<body class="layui-bg-black">
+	<!-- 导航栏    -->
+	<div class="layui-anim layui-anim-scale backgroundFilter" style="width:100%; z-index:9999;">
+		<ul class="layui-nav" lay-filter="" style="width:100%;">
+			<li class="layui-nav-item"><img src="images/logo_blank.jpg"></li> 
+					<li class="layui-nav-item"><a onclick="showmap()">定位 <i
+					class="layui-icon layui-icon-location"
+					style="font-size: 30px; color: &amp;#xe715;"></i></a></li>
+			<li class="layui-nav-item"><a href="index.html">主页 <i class="layui-icon layui-icon-home" style="font-size: 30px; color: &amp;#xe68e;"></i></a></li>
+			<li class="layui-nav-item"><a href="javascript:islogin()" id="person">个人中心 <i class="layui-icon layui-icon-username" style="font-size: 30px; color: &amp;#xe66f;"></i></a></li>
+			<li class="layui-nav-item"><a href="javascript:callManager();">联系客服 <i class="layui-icon layui-icon-chat" style="font-size: 30px; color: &amp;#xe606;"></i></a></li>
+			<li class="layui-nav-item"><a onclick="showcomment()">最新通知 <i class="layui-icon layui-icon-template-1" style="font-size: 30px; color:#ffa07a;"></i></a>			
+			<li style="display: inline; position: relative;z-index:9999; ">		
+					<div class="dropdown" id="search2">
+					<input type="text" name="title" class="dropdown-selected" id="search-input"
+							placeholder="请输入关键字" onclick="search.searchKeyword();"  onkeyup="search.searchKeyword();">
+					
+					</div>	
+			</li>
+			<li class="layui-nav-item" style="padding-right: 20px;"><i class="layui-icon layui-icon-search" style="font-size: 30px; color: &amp;#xe615;" onclick="selectall()"></i></li>
+			<li class="layui-nav-item"><button class="layui-btn layui-btn-radius layui-btn-danger layui-btn-lg"><a href="javascript:islogin();" id="puthouse">免费发布</a></button></li>
+			<li class="layui-nav-item" style="margin-left:2%;"><a href="javascript:islogin()" id="login_name">用户登录<i class="layui-icon layui-icon-rate-solid" style="font-size: 20px; color: &amp;#xe67a;"></i></a></li>
+			<li class="layui-nav-item" ><a href="javascript:loginout();">注销</a></li>
+		</ul>
+	</div>	
+	
+	<!-- 内容主体区  -->
+	<div class="backgroundImageFilter" class="layui-anim layui-anim-scale">
+	
+				<div class="dropdown" id="search" onclick="search.changeValue(this);search._init();">		
+					<ul id="ul-title" style="position:absolute;z-index: 9999;left:656px;display: none;width: 18.5%;top: 46px;" >
+									
+					</ul>
+				</div>		
+		
+		<div style="height: 270px; width:28%; margin-top:15px;margin-left:20px; float: left;">
+		    <div class="layui-carousel" id="test1">
+					<div carousel-item>
+						<div>
+							<img alt="图片" src="images/4.jpg" width="100%;" height="280px;">
+						</div>
+						<div>
+							<img alt="图片" src="images/5.jpg" width="100%;" height="280px;">
+						</div>
+						<div>
+							<img alt="图片" src="images/6.jpg" width="100%;" height="280px;">
+						</div>
+						<div>
+							<img alt="图片" src="images/7.jpg" width="100%;" height="280px;">
+						</div>
+						<div>
+							<img alt="图片" src="images/9.jpg" width="100%;" height="280px;">
+						</div>
+					</div>
+				</div>
+		</div>
+		
+		<div style="height: 270px; width:47%; float: left; color:white;">			
+			<form class="layui-form" method="post">
+				<div class="layui-form-item">
+					<label class="layui-form-label">出租类型</label>
+					<div class="layui-input-block">
+						<input type="radio" name="htype" value="" title="不限	" checked>
+						<input type="radio" name="htype" value="整套" title="整套"> <input
+							type="radio" name="htype" value="单间" title="单间">
+					</div>					
+				</div>
+
+				<div class="layui-form-item ">
+					<label class="layui-form-label">房屋区域</label>
+					<div class="layui-input-block">
+						<select id="select" lay-verify="required" >
+							<option value="">请选择区域</option>
+							<option value="珠晖区" name="district" style="color:black;">珠晖区</option>
+							<option value="蒸湘区" name="district" style="color:black;">蒸湘区</option>
+							<option value="雁峰区" name="district" style="color:black;">雁峰区</option>
+							<option value="石鼓区" name="district" style="color:black;">石鼓区</option>
+							<option value="南岳区" name="district" style="color:black;">南岳区</option>
+						</select><br>
+					</div>				
+					<label class="layui-form-label">房屋朝向</label>
+					<div class="layui-input-block">
+						<select name="aspection" lay-verify="required"
+							id="selectaspection">
+							<option value="">请选择朝向</option>
+							<option value="">不限</option>
+							<option value="东">东</option>
+							<option value="西">西</option>
+							<option value="南">南</option>
+							<option value="北">北</option>
+							<option value="东南">东南</option>
+							<option value="西南">西南</option>
+							<option value="东北">东北</option>
+							<option value="西北">西北</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">出租厅室</label>
+					<div class="layui-input-block">
+						<select id="selecthroom" lay-verify="required"  >
+							<option value="">请选择</option>
+							<option value="一室一厅"  style="color:black;">一室一厅</option>
+							<option value="两室一厅"  style="color:black;">两室一厅</option>
+							<option value="三室一厅"  style="color:black;">三室一厅</option>
+							<option value="四室一厅"  style="color:black;">四室一厅</option>
+							<option value="四室两厅"  style="color:black;">四室两厅</option>
+						</select><br>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">价格区间</label>
+					<div class="layui-input-block ">
+						<input type="radio" name="price" title="不限" value="0" checked>
+						<input type="radio" name="price" title="1000以内" value="1">
+						<input type="radio" name="price" title="1000-2000" value="1000">
+						<input type="radio" name="price" title="2000以上" value="2000">
+						<button type="button" class="layui-btn layui-btn-warm" id="show"
+								onclick="showhouse()" >立即查看</button>						
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- 查询公告 -->
+		<div class="info" style="height: 290px; width:20%; margin-right:30px;float: right;overflow:auto;">
+			<ul class="layui-timeline" id="infomation">
+			  
+			</ul>
+		</div>
+		<hr class="layui-bg-orange">
+		<hr class="layui-bg-orange">
+		<!-- 分割线----- -->
+
+		<div style="width: 100%;  height:585px; "  class="inner" id="innerStyle">
+			<div  class="innerbox" style="width: 62%; height:inherit; float: left; ">
+				<!-- 房源信息  -->
+				<div id="left-content"  style="width:100%; height:inherit;" >				
+					
+				</div>					
+				
+			</div>			
+			<!--百度地图容器--> 
+			<div id="map" >
+
+			</div>		
+			</div>
+		</div>		
+<!-- footer区  -->	
+ <div style=" width:100%; position:fix;bottom:0;text-align:center;">
+ <ul  id = "footernav" class="layui-nav layui-bg-black"  lay-filter="">
+  <li class="layui-nav-item"><a href="">常见问题</a></li>
+  <li class="layui-nav-item layui-this"><a href="">帮助中心</a></li>
+  <li class="layui-nav-item"><a href="">意见反馈</a></li>
+</ul>
+</div> 
+</body>
+
+<script type="text/javascript" src="js/Bmap.js"></script>
+<script type="text/javascript" src="js/index-search.js"></script>
+<script type="text/javascript" src="js/loginVerify.js"></script>
+
+<script>
+var addrArry=[];  // 地址数组 
+//身份验证 
+islogin();
+	
+//注意：导航 依赖 element 模块，否则无法进行功能性操作
+layui.use(['form','element'], function(){
+  var element = layui.element;
+  var form = layui.form;
+});
+
+layui.use('carousel', function(){
+	  var carousel = layui.carousel;
+	  //建造实例
+	  carousel.render({
+	    elem: '#test1'
+	    ,width: '100%' //设置容器宽度
+	    ,height: '90%'
+	    ,arrow: 'always' //始终显示箭头
+	    //,anim: 'updown' //切换动画方式
+	  });
+});		
+
+// 改变屏幕大小时候触发的事件
+function resizeWin(){
+	console.log($(window).height());
+	var height=$(window).height();
+	var width = $(window).width();
+	//alert(height);
+	$("#innerStyle").css("height",height-20);
+	$("#innerStyle").css("height",height-20);
+	$(".backgroundImageFilter").css("height",height+290);
+	
+}
+
+$(window).resize(function(){
+	//改变屏幕大小时候触发的事件
+	resizeWin();
+});
+
+//默认 显示已通过的房源信息  
+$(function(){
+	resizeWin();
+	showhouse();
+});
+	
+function showhouse(){
+	//获取到房屋的类型
+	var htype = $("input[name='htype']:checked").val();  //获取整套或者单间
+	var hroom=$("#selecthroom option:selected").val();		// 房屋类型 
+	var district=$("#select option:selected").val();			//获取地区
+	var aspection=$("#selectaspection option:selected").val();  //房屋朝向
+	var price = $("input[name='price']:checked").val();	//获取价格
+
+	$.post("showHouse",{htype:htype,district:district,aspection:aspection,price:price,hroom:hroom},function(data){
+		//console.log(data);				
+		if(data==''){
+			layer.msg('未找到合适的房源');
+		}
+		
+		var str2 = "";
+		for(var i=0;i<data.length;i++){
+			str2 +='<li ><a href="javaScript:">'+data[i].houseInfoPO.title+'</a></li>';
+		}
+		$("#ul-title").html(str2);	
+		
+		var str ="";
+		//var len = Math.ceil(data.length/2); //向上取整 :Math.ceil 向下取整 :Math.floor    onmousemove=searchNearby('+data[i*2].houseInfoPO.city+','data[i*2].houseInfoPO.district') 
+		for(var i=0;i<data.length;i+=2){ 	
+			str+='<div class="layui-anim layui-anim-scaleSpring" style="width:100%; height:310px; padding:8px; ">'+
+					'<div style="width:46%; height:280px;  margin-left:1%;margin-right:1%; float: left;" >'+
+						   '<a href="javascript:showhousedetail(\''+data[i].houseInfoPO.title+'\');"><img alt="" onmouseover="searchNearby(\''+data[i].houseInfoPO.district+''+data[i].houseInfoPO.strnum+'\',\''+data[i].houseInfoPO.city+'\')" src="'+data[i].houseInfoPO.picture.split(',')[0]+'" style="width:100%; height:220px;" title=" 位置：  '+data[i].houseInfoPO.province+'-'+
+						      ''+data[i].houseInfoPO.city+'-'+data[i].houseInfoPO.district+'\n街道/小区：  '+data[i].houseInfoPO.strnum+'\n楼层：  '+data[i].houseInfoPO.floor+'\n交租方式：'+data[i].houseInfoPO.paytype+'"   ></a> '+
+						    '<div  class="left-content-inline-height">'+
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'" style="font-size:14px; color:white;"><b>'+data[i].houseInfoPO.title+'</b></a>  <br/>'+									    
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'" style="color:white;">'+data[i].houseInfoPO.htype+' | '+data[i].houseInfoPO.hroom+' | '+data[i].houseInfoPO.aspection+'</a>'+
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'"><span style="color:#ff5722;margin-left:40%;font-size:20px;">￥ | '+data[i].houseInfoPO.price+'/月</span></a> <br/>'+
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'"><i class="layui-icon layui-icon-home"></i> &nbsp;&nbsp;<i class="layui-icon layui-icon-diamond"></i>'+
+							    '&nbsp;&nbsp;<i class="layui-icon layui-icon-rmb "></i> &nbsp;&nbsp;<i class="layui-icon layui-icon-rate-solid "> </i></a>'+						    
+							'</div>'+
+						'</div>'
+						addrArry.push(data[i].houseInfoPO.district+''+data[i].houseInfoPO.strnum);
+						if( i+1 < data.length ){
+							str+='<div style="width:46%; height:280px; margin-left:4%;margin-right:2%; float: right;">'+
+						    '<a href="javascript:showhousedetail(\''+data[i+1].houseInfoPO.title+'\');"><img alt="" onmouseover="searchNearby(\''+data[i+1].houseInfoPO.strnum+'\',\''+data[i+1].houseInfoPO.city+'\')" src="'+data[i+1].houseInfoPO.picture.split(',')[0]+'" style="width:100%; height:220px;"  title=" 位置：  '+data[i+1].houseInfoPO.province+'-'+
+							   ''+data[i+1].houseInfoPO.city+'-'+data[i+1].houseInfoPO.district+'\n街道/小区：  '+data[i+1].houseInfoPO.strnum+'\n楼层：  '+data[i+1].houseInfoPO.floor+'\n交租方式：'+data[i+1].houseInfoPO.paytype+'"> </a>'+ 					   		      
+							 '<div  class="left-content-inline-height">'+
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'" style="font-size:14px; color:white;"><b>'+data[i+1].houseInfoPO.title+'</b></a> <br/>'+		
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'" style="color:white;">'+data[i+1].houseInfoPO.htype+' | '+data[i+1].houseInfoPO.hroom+' | '+data[i+1].houseInfoPO.aspection+'</a>'+
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'" ><span style="color:#ff5722;margin-left:40%;font-size:20px;">￥ | '+data[i+1].houseInfoPO.price+'/月</span></a><br/>'+
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'"><i class="layui-icon layui-icon-home"></i> &nbsp;&nbsp;<i class="layui-icon layui-icon-diamond"></i>'+
+							    '&nbsp;&nbsp;<i class="layui-icon layui-icon-rmb "></i>  &nbsp;&nbsp;<i class="layui-icon layui-icon-rate-solid "></i> </a>'+									   
+						    '</div>'+
+						'</div>'
+						addrArry.push(data[i+1].houseInfoPO.district+''+data[i+1].houseInfoPO.strnum);
+						}								
+				str+='</div>';					
+		}
+		str+='<div id="contentPage"  style="width:100%;height:40px; margin-bottom:30px; margin-left:25%; "></div>'
+	    $("#left-content").html(str);
+	});  
+}
+
+//联系客服 
+function callManager(){
+	 layer.prompt({title: '您的意见是我们不断前进的动力', formType: 2}, function(text, index){
+		 if( text != null && text !='' ){
+			 $.post('admin/sendAdvanceToAdmin',{advance:text},function(data){
+				 if(data == true){
+					 layer.msg("发送成功，感谢您宝贵的意见，我们会及时采取措施");
+				 }else{
+					 layer.msg("发送失败，请检查网络是否正常.");
+				 }
+			 });
+			 layer.close(index);
+		 }else{
+			 layer.msg("对不起，无法发送空的内容."); 
+		 }
+	 });
+}
+
+//分页 	  
+layui.use('laypage', function(){
+	  var laypage = layui.laypage;
+	  var i = 0; ++i;
+	  //执行一个laypage实例
+	  laypage.render({
+	    elem: 'contentPage' //注意，这里的 test1 是 ID，不用加 # 号
+	    ,count:100 //数据总数，从服务端得到
+	    ,skin: '#FF5722' //自定义选中色值
+	    ,skip: true //开启跳页
+	    ,layout: ['prev', 'page', 'next']
+	    ,prev: '<em> << </em>'
+	    ,next: '<em> >> </em>'
+	    ,theme: '#FFB800'
+	    ,jump: function(obj, first){
+	      if(!first){
+	        layer.msg('第'+ obj.curr +'页', {offset: 'b'});
+	      }
+	    }
+	  });
+	});	  
+
+//注销
+function loginout(){
+	$.post("user/loginout",function(data){
+		if(data==true){
+			window.location.href="login.html";
+			//layer.msg("退出成功");
+		}
+	});
+}
+
+//查询通知栏
+function showinfo(){
+	var str='<li class="layui-timeline-item">'+
+	    '<i class="layui-icon layui-timeline-axis">&#xe63f;</i>'+
+	    '<div class="layui-timeline-content layui-text">'+
+	    '<h3 class="layui-timeline-title" style="color:white">通知信息</h3></div></li>';
+	$.post("selectInformation",function(data){
+	for(var i=0;i<data.data.length;i++){
+			str+='<li class="layui-timeline-item">'+
+			   '<i class="layui-icon layui-timeline-axis">&#xe63f;</i>'+
+			    '<div class="layui-timeline-content layui-text" style="color:white;">'+
+			      '<h3 class="layui-timeline-title layui-text" style="color:white">'+data.data[i].info_date+'</h3>'+
+			      '<p>'+data.data[i].content+'<i class="layui-icon"></i></p>'+
+			    '</div></li>';
+		}
+	$("#infomation").html(str);
+	});	
+}
+showinfo();
+//  通知信息  
+function showcomment(){
+	layer.msg('以加载最新通知信息，请到右侧信息栏查看');
+}
+
+</script>
+
+
+<script>
+//全局检索
+function selectall(){
+	var title = $("input[name='title']").val();
+	$.post("showHouse",{title,title},function(data){
+		if(data==''){
+			layer.msg('未找到合适的房源');
+		}
+		var str ="";
+		//var len = Math.ceil(data.length/2); //向上取整 :Math.ceil 向下取整 :Math.floor    onmousemove=searchNearby('+data[i*2].houseInfoPO.city+','data[i*2].houseInfoPO.district') 
+		for(var i=0;i<data.length;i+=2){ 	
+			str+='<div class="layui-anim layui-anim-scaleSpring" style="width:100%; height:310px; padding:8px; ">'+
+					'<div style="width:46%; height:280px;  margin-left:1%;margin-right:1%; float: left;" >'+
+						   '<a href="javascript:showhousedetail(\''+data[i].houseInfoPO.title+'\');"><img alt="" onmouseover="searchNearby(\''+data[i].houseInfoPO.district+''+data[i].houseInfoPO.strnum+'\',\''+data[i].houseInfoPO.city+'\')" src="'+data[i].houseInfoPO.picture.split(',')[0]+'" style="width:100%; height:220px;" title=" 位置：  '+data[i].houseInfoPO.province+'-'+
+						      ''+data[i].houseInfoPO.city+'-'+data[i].houseInfoPO.district+'\n街道/小区：  '+data[i].houseInfoPO.strnum+'\n楼层：  '+data[i].houseInfoPO.floor+'\n交租方式：'+data[i].houseInfoPO.paytype+'"   ></a> '+
+						    '<div  class="left-content-inline-height">'+
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'" style="font-size:14px; color:white;"><b>'+data[i].houseInfoPO.title+'</b></a>  <br/>'+									    
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'" style="color:white;">'+data[i].houseInfoPO.htype+' | '+data[i].houseInfoPO.hroom+' | '+data[i].houseInfoPO.aspection+'</a>'+
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'"><span style="color:#ff5722;margin-left:40%;font-size:20px;">￥ | '+data[i].houseInfoPO.price+'/月</span></a> <br/>'+
+							    '<a href="detail.html?title='+escape(data[i].houseInfoPO.title)+'"><i class="layui-icon layui-icon-home"></i> &nbsp;&nbsp;<i class="layui-icon layui-icon-diamond"></i>'+
+							    '&nbsp;&nbsp;<i class="layui-icon layui-icon-rmb "></i> &nbsp;&nbsp;<i class="layui-icon layui-icon-rate-solid "> </i></a>'+						    
+							'</div>'+
+						'</div>'
+						addrArry.push(data[i].houseInfoPO.city+''+data[i].houseInfoPO.district+''+data[i].houseInfoPO.strnum);
+						if( i+1 < data.length ){
+							str+='<div style="width:46%; height:280px; margin-left:4%;margin-right:2%; float: right;">'+
+						    '<a href="javascript:showhousedetail(\''+data[i+1].houseInfoPO.title+'\');"><img alt="" onmouseover="searchNearby(\''+data[i+1].houseInfoPO.strnum+'\',\''+data[i+1].houseInfoPO.city+'\')" src="'+data[i+1].houseInfoPO.picture.split(',')[0]+'" style="width:100%; height:220px;"  title=" 位置：  '+data[i+1].houseInfoPO.province+'-'+
+							   ''+data[i+1].houseInfoPO.city+'-'+data[i+1].houseInfoPO.district+'\n街道/小区：  '+data[i+1].houseInfoPO.strnum+'\n楼层：  '+data[i+1].houseInfoPO.floor+'\n交租方式：'+data[i+1].houseInfoPO.paytype+'"> </a>'+ 					   		      
+							 '<div  class="left-content-inline-height">'+
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'" style="font-size:14px; color:white;"><b>'+data[i+1].houseInfoPO.title+'</b></a> <br/>'+		
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'" style="color:white;">'+data[i+1].houseInfoPO.htype+' | '+data[i+1].houseInfoPO.hroom+' | '+data[i+1].houseInfoPO.aspection+'</a>'+
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'" ><span style="color:#ff5722;margin-left:40%;font-size:20px;">￥ | '+data[i+1].houseInfoPO.price+'/月</span></a><br/>'+
+							    '<a href="detail.html?title='+escape(data[i+1].houseInfoPO.title)+'"><i class="layui-icon layui-icon-home"></i> &nbsp;&nbsp;<i class="layui-icon layui-icon-diamond"></i>'+
+							    '&nbsp;&nbsp;<i class="layui-icon layui-icon-rmb "></i>  &nbsp;&nbsp;<i class="layui-icon layui-icon-rate-solid "></i> </a>'+									   
+						    '</div>'+
+						'</div>'
+						addrArry.push(data[i+1].houseInfoPO.city+''+data[i+1].houseInfoPO.district+''+data[i+1].houseInfoPO.strnum);
+						}								
+				str+='</div>';					
+		}
+		str+='<div id="contentPage"  style="width:100%;height:40px; margin-bottom:30px; margin-left:25%; "></div>'
+	    $("#left-content").html(str);	
+	});
+}
+
+
+//地图的弹窗
+function showmap(){
+	//iframe窗
+	 layer.open({ 
+		  type: 2,
+		  title: false,
+		  closeBtn: 0, //不显示关闭按钮
+		  shade: [0],
+		  area: ['340px', '215px'],
+		  offset: 'rb', //右下角弹出
+		  time: 10, //2秒后自动关闭
+		  anim: 2,
+		  content: ['map.html', 'no'], //iframe的url，no代表不显示滚动条 
+	  end: function(){ //此处用于演示
+	    layer.open({
+	      type: 2,
+	      title: '我现在的位置。',
+	      shadeClose: true,
+	      shade: false,
+	      maxmin: true, //开启最大化最小化按钮
+	      area: ['893px', '600px'],
+	      content: 'map.html'
+	    });
+	  }
+	 }); 	
+}
+
+
+</script>
+</html>

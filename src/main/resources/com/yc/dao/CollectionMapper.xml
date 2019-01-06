@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.yc.dao.CollectionMapper">
+ 	
+ 	<select id="selectCollection" resultType="com.yc.po.CollectionPO">
+ 		select * from collection
+ 		<trim prefix="where" prefixOverrides="and">
+	 		<if test=" cname != null and cname != &quot;&quot; ">	
+	 			cname=#{cname}
+	 		</if>
+	 		<if test="tdate != null and tdate != &quot;&quot;" >
+	 			and tdate = #{tdate}
+	 		</if>
+	 		<if test="ctitle != null and ctitle != &quot;&quot;" >
+	 			and ctitle = #{ctitle}
+	 		</if>
+ 		</trim>
+ 	</select>
+ 	
+ 	<!-- 添加收藏  房屋的信息    房东的信息-->
+ 	<insert id="insertCollection">
+ 		insert into collection 
+ 		values(null,#{cname},#{ctitle},now())
+ 	</insert>
+ 	
+ 	<!-- 移除收藏 -->
+ 	<delete id="deleteCollection">
+ 		delete from collection where tid in
+ 		<foreach collection="list" item="tid" separator="," open="(" close=")">
+ 			#{tid}
+ 		</foreach>
+ 		
+ 	</delete>
+
+ </mapper>

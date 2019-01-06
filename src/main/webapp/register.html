@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册界面</title>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+<link type="text/css" rel="stylesheet" href="layui/css/layui.css">
+</head>
+<style>
+body {
+	background: url(images/indexbk.jpg) no-repeat;
+}
+</style>
+<script>
+	//Demo
+	layui.use('form', function() {
+		var form = layui.form;
+		//添加验证规则		
+		form.verify({
+			uname : [ /^([\u4e00-\u9fa5]){2,7}$/ //只能是中文，长度为2-7位
+			, '对不起，您输入的名字格式不正确!'//
+			],			
+			//数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+			pass : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
+			confirmPwd : function(value, item) {
+				if (!new RegExp($("#upwd").val()).test(value)) {
+					return "两次输入密码不一致，请重新输入！";
+				}
+			}
+		});
+		//监听提交
+		form.on('submit(formDemo)', function(data) {
+			layer.msg(JSON.stringify(data.field));
+			return false;
+		});
+	});
+
+	//注意进度条依赖 element 模块，否则无法进行正常渲染和功能性操作
+	layui.use('element', function() {
+		var element = layui.element;
+	});
+	
+		
+	
+	
+	
+</script>
+<body>
+	<div class="layui-container">
+		<div class="layui-row">
+			<br> <a href="index.html"
+				class="layui-col-lg1 layui-col-lg-offset3">返回首页</a> <a
+				href="login.html" class="layui-col-lg3 layui-col-lg-offset4">已有账户，去登录</a>
+			<br> <br>
+			<div class="layui-col-lg6 layui-col-lg-offset3 layui-container"
+				style="background-color: white; height: 600px">
+				<br>
+				<br> <img class="layui-col-lg-offset2" src="images/login.jpg">
+				<br>
+				<br>
+				<br>
+				
+				<form class="layui-form" action="insertUser" method="post">
+					<div class="layui-form-item" id="tellogindiv">
+						<input type="text" name="tel" required lay-verify="required"
+									placeholder="手机号" autocomplete="off" class="layui-input" style="width:350px;float:left">
+								<button  type="button" style="margin-left: 10px;" class="layui-btn layui-btn-warm layui-bg-blue" id="show" onclick="message()" >获取验证码</button>
+								<span id="timePlayer" style="color: gray;"></span>
+					</div>
+					<br>
+					<div class="layui-form-item">
+						<input type="text" name="code" id="code" required lay-verify="required"
+							placeholder="验证码" autocomplete="off" class="layui-input" style="width:350px;float:left">
+							<button  type="button" style="margin-left: 10px;" class="layui-btn layui-btn-warm layui-bg-blue" onclick="codetest()" >核实验证码</button>
+					</div>
+					<br>
+					<div class="layui-form-item">
+						<input type="text" name="uname" required lay-verify="required|uname"
+							placeholder="用户名" autocomplete="off" class="layui-input">
+					</div>
+					<br>
+					<div class="layui-form-item">
+						<input type="password" name="upwd"  id="upwd" required
+							lay-verify="required|pass" placeholder="设置密码" autocomplete="off"
+							class="layui-input">
+					</div>
+					<br>
+					<div class="layui-form-item">
+						<input type="password" name="cpwd" required lay-verify="required|confirmPwd"
+							placeholder="确认密码" autocomplete="off" class="layui-input">
+					</div>
+					<br>
+					<div class="layui-form-item">
+						<input type="button" value="注册" onclick="register()" class="layui-btn layui-btn-fluid">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	$("input[name='tel']").blur(function(){
+		var tel=$("#tellogindiv input[name='tel']").val();
+		var reg_tel=/^1(3|4|5|7|8)\d{9}$/;
+		if(!reg_tel.test(tel)){
+			layer.msg("手机格式不正确");
+		}
+	});
+		function register(){
+			var tel =$("input[name='tel']").val();
+			var uname = $("input[name='uname']").val();
+			var upwd = $("input[name='upwd']").val();
+			var cpwd = $("input[name='cpwd']").val();	
+			$.post("user/insertUser",{tel:tel,uname:uname,upwd:hex_md5(upwd),cpwd:hex_md5(cpwd)},function(data){
+				if(data==true){
+					//layer.msg('恭喜，注册成功！！！');
+					layer.alert('恭喜，注册成功！！！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						}, function(){
+						  layer.alert('温馨提示：请妥善保管账号密码', {
+						    skin: 'layui-layer-lan'
+						    ,closeBtn: 0
+						    ,anim: 4 //动画类型
+						  });
+						});
+				}else{
+					layer.msg('很遗憾，注册失败了....');
+					
+				}
+			});
+		}
+		
+		//首先发送手机号到控制层，控制层发送验证码
+		function message(){
+			 var tel =  $("input[name='tel']").val();
+			 timePlayer();
+			 $.post("user/getmessage",{tel,tel},function(data){
+				if(data!=null){
+					layer.msg('验证码已经发送，请注意查看');
+				}
+			}); 
+		}
+		
+		//验证码计时器 
+		var a=30;
+		function timePlayer(){	
+			if(a<=60 && a>0 ){
+				$("#timePlayer").html('（'+a+'s）后请重试');
+				$("#show").attr("class","layui-btn layui-btn-radius layui-btn-disabled");
+				$("#show").attr("disabled",true);
+				a=a-1;
+			}else if(a==0){
+				$("#timePlayer").html('');
+				$("#show").attr("class","layui-btn layui-btn-radius layui-btn-danger");
+				$("#show").removeAttr("disabled");
+				clearTimeout(timer);
+			}
+			timer= setTimeout("timePlayer()",1000);
+		}
+		
+		
+		//再次请求，把收到的验证码传递带控制层，在进行判断
+		function codetest(){
+			var code =  $("input[name='code']").val();
+			$.post("user/codetest",{code,code},function(data){
+				if(data==1){
+					layer.alert('验证码正确!!!输入框锁定，记得变成灰色', {
+						  icon: 1,
+						  skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+						})
+					document.getElementById('code').readOnly=true;
+				}else if(data==0){
+					layer.alert('验证码错误!!!', {
+						  icon: 2,
+						  skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+						})
+				}
+					
+			});
+		}
+		
+	</script>
+
+</body>
+</html>

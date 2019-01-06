@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #fffafa;
+}
+
+.layui-user-login-main {
+	height: 476px;
+	margin-top:70px;
+}
+
+.layui-user-login-header {
+	padding-top:10px; 
+	border:1px solid #f0eeeb;
+	width:500px;height:80px; 
+	margin: auto;
+	background-color: white; 
+}
+#loginStyle{
+    border:1px solid #f0eeeb; 
+    width:500px;height:380px; 
+    margin: auto;
+    background-color: white; 
+}
+.layui-user-login-box {
+	width: 340px;
+	height: 356px;
+	margin: auto;
+	padding-top:50px;
+	padding-bottom: 50px;
+}
+
+.layui-form-item {
+	position: relative;
+}
+
+.layui_user_icon {
+	position: absolute;
+	left: 0;
+	z-index: 5;
+	margin: 10px;
+	color: gray;
+}
+
+.layui-input {
+	padding-left: 35px;
+}
+
+.layadmin-user-login-footer p {
+	margin-top: 20px;
+	font-size: 15px;
+	color: gray;
+}
+
+.layadmin-user-login-footer p a {
+	margin-top: 20px;
+	font-size: 15px;
+	color: gray;
+}
+
+.layadmin-user-login-footer p span a {
+	margin-top: 20px;
+	margin-left: 20px;
+	font-size: 15px;
+	color: gray;
+}

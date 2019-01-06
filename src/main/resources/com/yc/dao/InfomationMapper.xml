@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.yc.dao.InfomationMapper">
+ 	<!-- 发布公告 -->
+ 	<insert id="insertInfo">
+ 		insert into infomation
+ 		values(null,#{content},#{info_date},#{info_type})
+ 	</insert>
+ 	
+ 	<!-- 根据 日期  类型  查看公告的信息  -->
+ 	<select id="selectInfo" resultType="com.yc.po.InfomationPO">
+ 		select * from infomation
+ 		<where>
+ 			<if test="info_date!=null and info_date!=''">
+ 				and info_date = #{info_date}
+ 			</if>
+ 			<if test="info_type!=null and info_type!=''">
+ 				and info_type = #{info_type}
+ 			</if>
+ 		</where>
+ 		order by info_date desc
+ 	</select>
+ 	
+ 	<!-- 根据主键删除一条公告 -->
+ 	<delete id="deleteInfo">
+ 		delete from infomation where fid=#{fid}
+ 	</delete>
+ 	
+ 	<!-- // 修改内容 	
+	public boolean updateInfo(InfomationPO informationPO); -->
+	<update id="updateInfo">
+		update infomation set content=#{content} where fid=#{fid}
+	</update>
+	
+	<!-- //批量删除 公告信息
+	public boolean batchDeleteInfo(List<Integer> fid);  -->
+	<delete id="batchDeleteInfo">
+		delete from infomation where fid in 
+		<foreach collection="list" item="fid" open="(" separator="," close=")">
+		    #{fid}
+		</foreach>		
+	</delete>
+	
+ 	
+ </mapper>

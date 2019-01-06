@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>详情页面</title>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<link type="text/css" rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+	<!-- <iframe src="http://localhost:8888/house/commons/header.html"
+		width="100%" height="70" frameborder="0" name="commons/header.html"
+		scrolling="no"> </iframe> -->
+<ul class="layui-nav" lay-filter="">
+		<li class="layui-nav-item"><img src="images/logo_blank.jpg"></li>
+		<li class="layui-nav-item"><a href="">定位 <i
+				class="layui-icon layui-icon-location"
+				style="font-size: 30px; color: &amp;#xe715;"></i></a></li>
+		<li class="layui-nav-item"><a href="index.html">主页 <i
+				class="layui-icon layui-icon-home"
+				style="font-size: 30px; color: &amp;#xe68e;"></i></a></li>
+		<li class="layui-nav-item"><a href="my.html">个人中心 <i
+				class="layui-icon layui-icon-username"
+				style="font-size: 30px; color: &amp;#xe66f;"></i></a></li>
+		<li class="layui-nav-item"><a href="">联系客服 <i
+				class="layui-icon layui-icon-chat"
+				style="font-size: 30px; color: &amp;#xe606;"></i></a></li>
+		<li class="layui-nav-item"><a href="javascript:;">最新通知 <i
+				class="layui-icon layui-icon-template-1"
+				style="font-size: 30px; color: &amp;#xe656;"></i></a></li>
+		<li class="layui-nav-item" style="margin-left: 10px;"></li>
+		<li class="layui-nav-item"><button
+				class="layui-btn layui-btn-radius layui-btn-danger layui-btn-lg"
+				onclick="window.location.href='puthouse.html'">免费发布</button></li>
+		<li class="layui-nav-item" style="margin-left: 30px;"><a
+			href="login.html" id="login_name">用户登录<i
+				class="layui-icon layui-icon-rate-solid"
+				style="font-size: 30px; color: &amp;#xe67a;"></i></a></li>
+	</ul>
+	<div
+		style="width: 90%; margin: 0 auto; overflow: hidden;">
+
+		<div style="width: 100%; height: 50px;">
+			
+		</div>
+		<div style="width: 100%; height: 80px;">
+			<div style="width: 50%; height: 80px; float: left;">
+				<h1 style="margin-left: 70px; color: #FF5722" id="title"></h1>
+				<br> <label style="margin-left: 70px; color: #2F4056"><span id="scancount"></span>次浏览</label>
+			</div>
+			<div
+				style="width: 50%; height: 80px; float: right; line-height: 80px; text-align: center;">
+				 <a href="javascript:addCollection();"><i class="layui-icon layui-icon-star"
+					style="font-size: 16px; color: #1E9FFF;"></i> &nbsp;添加收藏&nbsp; </a>
+				&nbsp;<a href="javascript:window.location.reload();"> <i class="layui-icon layui-icon-refresh-3"
+					style="font-size: 16px; color: #1E9FFF;"> </i>&nbsp;刷新 &nbsp;</a>
+				&nbsp; <i class="layui-icon layui-icon-share"
+					style="font-size: 16px; color: #1E9FFF;"></i>&nbsp; 分享 &nbsp;
+				&nbsp;
+
+			</div>
+		</div>
+
+		<hr class="layui-bg-orange">
+		<hr class="layui-bg-orange">
+
+		<div style="width: 50%; height: 500px; float: left;">
+			<div style="width: 80%; height: 80%; margin: 50px;">
+				<div class="layui-carousel" id="test1">
+					<div carousel-item>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="width:50%;height:465px;float:right;margin-top:36px;">
+			<table class="layui-table itemtable" lay-even="" lay-skin="row">
+				<thead>
+					<tr>
+						<th><b>详情</b></th>
+						<th><b>信息</b></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<button onclick="show()"
+				class="layui-btn layui-btn-fluid layui-btn layui-btn-lg layui-btn-normal">马上联系房东</button>
+		</div>
+		
+		<hr class="layui-bg-orange">
+		<hr class="layui-bg-orange">
+
+		<div style="width: 50%; height: 600px; float: left; border: 1px solid">
+			<div style="width: 100%; height: 50%;">
+				<h1 class="layui-bg-black">房屋详情</h1>
+				<hr>
+				<ul>
+					<li><strong>房屋描述:</strong></li>
+					<li id="discrible"></li>
+				</ul>
+			</div>
+			<div style="height:50%;width:100%;">
+				<h1 class="layui-bg-black">设施</h1>
+				<ul style="margin-top: 30px;">
+					<li>
+						<img alt="图片" src="img/1.PNG" height="50px;" width="50px;" style="margin-left: 6%;">
+						<img alt="图片" src="img/2.PNG" height="50px;" width="50px;" style="margin-left: 6%;">
+						<img alt="图片" src="img/3.PNG" height="50px;" width="50px;" style="margin-left: 6%;">
+						<img alt="图片" src="img/4.PNG" height="50px;" width="50px;" style="margin-left: 6%;">
+						<img alt="图片" src="img/5.PNG" height="50px;" width="50px;" style="margin-left: 6%;">
+						<img alt="图片" src="img/6.PNG" height="50px;" width="50px;" style="margin-left: 6%;">
+					</li>	
+				</ul>
+				<ul>
+					<li>
+						<span style="margin-left: 8%;">淋浴</span>	
+						<span style="margin-left: 8%;">无线网</span>	
+						<span style="margin-left: 8%;">空调</span>	
+						<span style="margin-left: 9%;">电视</span>	
+						<span style="margin-left: 9%;">洗衣机</span>	
+						<span style="margin-left: 9%;">冰箱</span>	
+					</li>
+				</ul>
+					
+			</div>
+			
+		</div>
+		
+		<div style="width: 48%; height: 600px; float: right; border: 1px solid">
+			
+			<div style="height:100%;width:100%;">
+			<h1 class="layui-bg-black">评论</h1>
+			<hr>
+			
+				<div class="comment" style="width: 100%; height: 100px;">
+					
+				</div>	
+				
+				<textarea id="text"  style="margin-top: 32%; height: 21%;width: 99%">输入你想评论的</textarea>
+				<button onclick="insertcomment()"
+				class="layui-btn layui-btn-fluid layui-btn layui-btn-lg  layui-btn-normal">发布评论</button>
+		
+			</div>
+			
+		</div>
+
+
+	</div>
+	<!-- footer区  -->	
+<div style=" width:100%; position:fix;bottom:0;text-align:center;">
+ 	<ul  id = "footernav" class="layui-nav layui-bg-black"  lay-filter="">
+	  <li class="layui-nav-item"><a href="">常见问题</a></li>
+	  <li class="layui-nav-item layui-this"><a href="">帮助中心</a></li>
+	  <li class="layui-nav-item"><a href="">意见反馈</a></li>
+	</ul>
+</div> 
+
+</body>
+<script type="text/javascript">
+$.post("user/yes",function(value){
+	if(value!=null){
+		$("#login_name").attr("href","my.html");
+		$("#login_name").html(value.uname);
+	}
+});
+//评论的post请求
+function insertcomment(){
+	var info = $("#text").val();
+	var ctitle=getUrlParam('title');
+	
+	$.post("insertComment", {info : info,ctitle : ctitle}, function(data) {
+		if(data==true){
+				layui.use('layer', function(){
+					  var layer = layui.layer;
+				layer.alert('评论成功', {
+					  icon: 1,
+					  skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+					})
+				});
+			 setTimeout(function(){
+				window.location.reload();
+			 },1800);
+		}else{
+			layui.use('layer', function(){
+				  var layer = layui.layer;
+			layer.alert('评论不能为空', {
+				  icon: 2,
+				  skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+				})
+			});
+		}
+	});	
+}
+
+
+
+
+//显示详情页面   从url地址栏取出参数
+function getUrlParam(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+	if (r!=null) return unescape(r[2]); return null; //返回参数值
+}
+var title=getUrlParam('title');
+	//查询信息   根据title查询
+	$.post("showHouse", {title : title}, function(data) {
+		$("#discrible").html(data[0].houseInfoPO.discrible);
+		$("#title").html(data[0].houseInfoPO.title);
+		str='<tr><td>位置</td><td><b>'+data[0].houseInfoPO.province+''+data[0].houseInfoPO.city+''+data[0].houseInfoPO.district+'</b></td></tr>'+
+			'<tr><td>出租类型</td><td><b>'+data[0].houseInfoPO.htype+data[0].houseInfoPO.hroom+'</b></td></tr>'+
+			'<tr><td>楼层</td><td><b>'+data[0].houseInfoPO.floor+'</b></td></tr>'+
+			'<tr><td>房屋面积</td><td><b>'+data[0].houseInfoPO.area+'</b></td></tr>'+
+			'<tr><td>支付方式</td><td><b>'+data[0].houseInfoPO.paytype+'</b></td></tr>'+
+			'<tr><td>发布时间</td><td><b>'+data[0].houseInfoPO.pushdate+'</b></td></tr>'+
+			'<tr><td>价格</td><td><b>'+data[0].houseInfoPO.price+'</b></td></tr>'+
+			'<tr><td>房屋朝向</td><td><b>'+data[0].houseInfoPO.aspection+'</b></td></tr>';		
+			$(".itemtable tbody").html(str);
+			//轮播图预处理 
+			var pictures=data[0].houseInfoPO.picture;
+			var pic=pictures.split(",");
+			var str2='';
+			for(var j=0;j<pic.length;j++){
+				str2+='<div><img alt="图片" src="'+pic[j]+'" width="685px;" height="400px;"></div>';
+			}
+			$("#test1 div").html(str2);	
+	});
+	
+	$.post("selectComment",{ctitle:title},function(data){
+		console.log(data);
+		var str2='';
+		for (var i = 0; i < data.length; i++) {	
+			str2 +='<ul><li><h3 style="color:blue;"> &nbsp;&nbsp;&nbsp;用 户( 等 级 '+data[i].grade+'):'+data[i].cname+''+
+				   '<a style="padding-left: 60%;">'+data[i].cdate+'</a></h3></li>'+
+				   '<li>评论：'+data[i].info+'</li><hr>';
+		}
+		$(".comment").html(str2);
+	});	
+		
+	$.post("insertScan",{ctitle:title},function(data){
+		console.log(data);
+		//查询浏览量
+		$.post("selectScanCount",{ctitle:title},function(data){
+			console.log(data);
+			$("#scancount").html(data);
+		});
+	});
+
+	//轮播图
+	layui.use('carousel', function() {
+		var carousel = layui.carousel;
+		//建造实例
+		carousel.render({
+			elem : '#test1',
+			width : '100%' //设置容器宽度
+			,
+			height : '100%',
+			arrow : 'always' //始终显示箭头
+		    //,anim: 'updown' //切换动画方式
+		});
+
+	});
+	 //弹窗
+	layui.use('layer', function() {
+		var layer = layui.layer;
+	}); 
+
+	function show(){
+		
+		layer.alert('防虚假信息，请擦亮自己的眼睛', {
+			icon : 1,
+			skin : 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+		})
+		var title=getUrlParam('title');
+		$.post("showuser",{title:title},function(data){
+			if(data==1){
+				layui.use('layer', function(){
+					setTimeout(function(){
+					 layer.open({
+						  type: 2,
+						  title: '房东的二维码',
+						  shadeClose: true,
+						  shade: 0.8,
+						  area: ['420px', '450px'],
+						  content: 'images/code1.png' //iframe的url
+						});  
+						
+					 },1800);
+				}); 
+			}else if(data==8){
+				layui.use('layer', function(){
+					setTimeout(function(){
+					 layer.open({
+						  type: 2,
+						  title: '房东的二维码',
+						  shadeClose: true,
+						  shade: 0.8,
+						  area: ['420px', '450px'],
+						  content: 'images/code2.png' //iframe的url
+						});  
+						
+					 },1800);
+				}); 
+			}else if(data==9){
+				layui.use('layer', function(){
+					setTimeout(function(){
+					 layer.open({
+						  type: 2,
+						  title: '房东的二维码',
+						  shadeClose: true,
+						  shade: 0.8,
+						  area: ['420px', '450px'],
+						  content: 'images/code3.png' //iframe的url
+						});  
+						
+					 },1800);
+				}); 
+			}else if(data==10){
+				layui.use('layer', function(){
+					setTimeout(function(){
+					 layer.open({
+						  type: 2,
+						  title: '房东的二维码',
+						  shadeClose: true,
+						  shade: 0.8,
+						  area: ['420px', '450px'],
+						  content: 'images/code4.png' //iframe的url
+						});  
+					 },1800);
+				}); 
+			}
+		});
+		
+	}
+
+	
+	
+	
+	// 添加收藏 
+	function addCollection(){
+		var ctitle=$("#title").text();
+		$.post("insertCollection",{ctitle:ctitle},function(data){
+			if(data=="yes"){
+				layer.msg("收藏成功");				
+			}else if(data=="have"){
+				layer.msg("已经收藏过，无需重复收藏");
+			}else{
+				layer.msg("收藏失败");
+			}
+		});
+	}
+</script>
+</html>

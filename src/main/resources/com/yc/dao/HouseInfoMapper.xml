@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.yc.dao.HouseInfoMapper">	
+ 	<resultMap type="com.yc.po.UserInfoPO" id="mymap">
+ 		<id column="uid" property="uid"/>
+ 		<result column="hid" property="houseInfoPO.hid"/>
+ 		<result column="province" property="houseInfoPO.province"/>
+ 		<result column="city" property="houseInfoPO.city"/>
+ 		<result column="district" property="houseInfoPO.district"/>
+ 		<result column="strnum" property="houseInfoPO.strnum"/> 		
+ 		<result column="htype" property="houseInfoPO.htype"/> 		
+ 		<result column="hroom" property="houseInfoPO.hroom"/>
+ 		<result column="floor" property="houseInfoPO.floor"/>
+ 		<result column="area" property="houseInfoPO.area"/>
+ 		<result column="status" property="houseInfoPO.status"/>
+ 		<result column="paytype" property="houseInfoPO.paytype"/>
+ 		<result column="pushdate" property="houseInfoPO.pushdate"/> 		
+ 		<result column="aspection" property="houseInfoPO.aspection"/> 		
+ 		<result column="discrible" property="houseInfoPO.discrible"/> 	
+ 		<result column="title" property="houseInfoPO.title"/>
+ 		<result column="infrastr" property="houseInfoPO.infrastr"/>
+ 		<result column="price" property="houseInfoPO.price"/>
+ 		<result column="deposit" property="houseInfoPO.deposit"/>
+ 		<result column="picture" property="houseInfoPO.picture"/> 		
+ 		<result column="pushstatus" property="houseInfoPO.pushstatus"/> 		
+ 		<result column="reason" property="houseInfoPO.reason"/> 
+ 		<result column="account" property="houseInfoPO.account"/>  	 	
+ 	</resultMap>
+ 	<select id="selectHouseInfo" resultMap="mymap">
+ 		select * from houseinfo h INNER JOIN userinfo u on h.uid=u.uid
+ 
+ 		 <where>
+ 			<if test="province!=null and province!=''"> 
+ 				and province = #{province}
+ 			</if>
+ 			<if test="city!=null and city!=''">
+ 				and city = #{city}
+ 			</if>
+ 			<if test="district!=null and district!=''">
+ 				and district = #{district}
+ 			</if>
+ 			<if test="strnum!=null and strnum!=''">
+ 				and strnum = #{strnum}
+ 			</if>
+ 			<if test="htype!=null and htype!=''">
+ 				and htype = #{htype}
+ 			</if>
+ 			<if test="hroom!=null and hroom!=''">
+ 				and hroom = #{hroom}
+ 			</if>
+ 			<if test="area!=null and area!=''">
+ 				and area = #{area}
+ 			</if>
+ 			<if test="status!=null and status!=''">
+ 				and status = #{status}
+ 			</if>
+ 			<if test="pushdate!=null and pushdate!=''">
+ 				and pushdate = #{pushdate}
+ 			</if>
+ 			<if test="price &gt;0 and price &lt; 2000 and price!='' ">
+ 				and price between  #{price} and #{price}+1000
+ 			</if>
+ 			<if test="price &gt;= 2000 ">
+ 				and price >=2000
+ 			</if>
+ 			<if test="title!=null and title!=''">
+ 				and title=#{title}
+ 			</if>
+ 			<if test="uid!=null">
+ 				and u.uid=#{uid}
+ 			</if> 			
+ 			<if test="pushstatus!=null and pushstatus!=''">
+ 				and pushstatus=#{pushstatus}
+ 			</if>
+ 			<if test="account!=null and account!=''">
+ 				and account=#{account}
+ 			</if>
+ 			<if test="reason!=null and reason!=''">
+ 				and reason=#{reason}
+ 			</if>
+ 		</where>  
+ 	</select>
+ 	
+ 	<select id="selecttitle" resultType="com.yc.po.HouseInfoPO">
+ 		select * from houseinfo where title=#{title}
+ 	</select>
+ 	
+ 	<!-- 插入房源的信息 -->
+ 	<insert id="insertHouseInfo">
+ 		INSERT INTO houseinfo 
+		VALUES (null, #{uid}, #{province}, #{city}, #{district}, #{strnum}, #{htype} , #{hroom}, #{floor}, #{area}, #{status}, #{paytype}, #{pushdate}, #{aspection}, #{discrible}, #{title}, #{infrastr}, #{price}, #{deposit}, #{picture}, '审核中', #{reason}, #{account});
+ 	</insert>
+ 	
+ 	<update id="updateHouseInfo">
+ 		update houseinfo
+ 		<set>
+ 			<if test="strnum!=null and strnum!=''">
+ 				strnum = #{strnum},
+ 			</if>
+ 			<if test="htype!=null and htype!=''">
+ 				htype = #{htype},
+ 			</if>
+ 			<if test="hroom!=null and hroom!=''">
+ 				hroom = #{hroom},
+ 			</if>
+ 			<if test="floor!=null and floor!=''">
+ 				floor = #{floor},
+ 			</if>
+ 			<if test="status!=null and status!=''">
+ 				status = #{status},
+ 			</if>
+ 			<if test="paytype!=null and paytype!=''">
+ 				paytype = #{paytype},
+ 			</if>
+ 			<if test="discrible!=null and discrible!=''">
+ 				discrible = #{discrible},
+ 			</if>
+ 			<if test="title!=null and title!=''">
+ 				title = #{title},
+ 			</if>
+ 			<if test="infrastr!=null and infrastr!=''">
+ 				infrastr = #{infrastr},
+ 			</if>
+ 			<if test="price!=null and price!=''">
+ 				price = #{price},
+ 			</if>
+ 			<if test="deposit!=null and deposit!=''">
+ 				deposit = #{deposit},
+ 			</if>
+ 			<if test="pushstatus!=null and pushstatus!=''">
+ 				pushstatus=#{pushstatus},
+ 			</if>
+ 			<if test="account!=null and account!=''">
+ 				account=#{account},
+ 			</if>
+ 			<if test="reason!=null and reason!=''">
+ 				reason=#{reason}
+ 			</if>
+ 		</set>
+ 			where hid=#{hid}
+ 	</update>
+ 	
+ 	<!-- 删除房屋信息 -->
+ 	<delete id="deleteHouseInfo">
+ 		delete from houseinfo where hid in
+ 		<foreach collection="list" item="hid" separator="," open="(" close=")">
+ 			#{hid}
+ 		</foreach>
+ 		
+ 	</delete>
+ 	
+ 	<!--  //批量审核房源信息(通过)
+    public boolean batchUpdateHouseInfo(List<String> hid); -->
+    <update id="batchUpdateHouseInfoPushstatus" parameterType="map">
+    	update houseinfo     		
+    	set pushstatus=#{pushstatus},account=#{account} where hid in
+    	<foreach collection="hidList" item="hid" separator="," open="(" close=")" index="index">
+    		#{hid}
+    	</foreach>    
+    </update>
+    
+ </mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.yc.dao.UserInfoMapper">
+ 	<insert id="insertUser" parameterType="com.yc.po.UserInfoPO">
+ 		insert into userinfo 
+ 		values(null,#{uname},#{firstname},#{upwd},#{sex},#{idcard},#{tel},#{email},'游客')
+ 	</insert>
+ 	<!-- 根据 uid  电话   用户名   身份证  查询用户的信息 -->
+ 	<select id="selectUser" resultType="com.yc.po.UserInfoPO">
+ 		select * from userinfo 
+ 		<where>
+ 			<if test="uid!=null and uid!=''">
+ 				and uid = #{uid}
+ 			</if>
+ 			<if test="tel!=null and tel!=''">
+ 				and tel = #{tel}
+ 			</if>
+ 			<if test="uname!=null and uname!=''">
+ 				and uname = #{uname}
+ 			</if>
+ 			<if test="idcard!=null and idcard!=''">
+ 				and idcard = #{idcard}
+ 			</if>
+ 			<if test="upwd!=null and upwd!=''">
+ 				and upwd = #{upwd}
+ 			</if>
+ 			<if test="ugrade!=null and ugrade!=''">
+ 				and ugrade = #{ugrade}
+ 			</if>
+ 		</where>
+ 	</select>
+ 	
+ 	<select id="findUserById" parameterType="Integer" resultType="userInfoPO">
+ 		select * from userinfo where uid=#{uid}
+ 	</select>
+ 	
+ 	<select id="userlogin">
+ 		select * from userinfo where 
+ 		<where>
+ 			<if test="uname!=null and uname!=''">
+ 				and uname=#{uname}
+ 			</if>
+ 			<if test="tel!=null and tel!=''">
+ 				and tel=#{tel}
+ 			</if>
+ 			<if test="upwd!=null and upwd!=''">
+ 				and upwd=#{upwd}
+ 			</if>
+ 		</where>
+ 	</select>
+ 	
+ 	
+ 	<!-- 可以修改  用户名   密码   电话   邮箱   类型（升级为房东） 根据uid -->
+ 	<update id="updateUser" parameterType="userInfoPO">
+ 	update userinfo 
+ 	<set>
+ 		<if test="firstname!=null and firstname!=''">
+ 			firstname=#{firstname},
+ 		</if>
+ 		<if test="upwd!=null and upwd!=''">
+ 			upwd=#{upwd},
+ 		</if>
+ 		<if test="tel!=null and tel!=''">
+ 			tel=#{tel},
+ 		</if>
+ 		<if test="email!=null and email!=''">
+ 			email=#{email},
+ 		</if>
+ 		<if test="idcard!=null and idcard!=''">
+ 			idcard=#{idcard},
+ 		</if>
+ 		<if test="sex!=null and sex!=''">
+ 			sex=#{sex},
+ 		</if>
+ 		<if test="utype!=null and utype!=''">
+ 			utype=#{utype}
+ 		</if>
+ 	</set>
+ 	where uid=#{uid}
+ </update>
+ 	
+ 	<delete id="delectUser">
+ 		delete from userinfo where uid = #{uid}
+ 	</delete>
+ 	
+ 	
+ 	<delete id="batchDeleteUserInfo">
+ 		delete from userinfo where uid in 
+ 		<foreach collection="list" item="uid" open="(" separator="," close=")" >
+ 			#{uid} 		
+ 		</foreach>		
+ 	</delete>
+ 	
+ </mapper>
